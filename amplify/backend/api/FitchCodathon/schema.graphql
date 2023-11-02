@@ -1,0 +1,25 @@
+type SignUps @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Events: Events @hasOne
+  Tickets: Tickets @hasOne
+  name: String!
+  Email: AWSEmail!
+  Phone: AWSPhone
+  Paid: Boolean!
+}
+
+type Tickets @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  amount: Int
+  type: String
+  price: Float!
+  eventsID: ID! @index(name: "byEvents")
+}
+
+type Events @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  dateTime: AWSDateTime!
+  locationPlusCode: String
+  Tickets: [Tickets] @hasMany(indexName: "byEvents", fields: ["id"])
+} 
