@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { FloatingButton } from './util';
 
 const fakeTicketList = [
   {
-    name: "ticket1",
+    name: 'ticket1',
     price: 100,
     description: 'this is ticket1',
   },
   {
-    name: "ticket2",
+    name: 'ticket2',
     price: 300,
     description: 'this is ticket2',
   },
-]
+];
 
-
-const TicketSection = ({ticket, totalPrice, setTotalPrice}) => {
-
+const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
   const [ticketQuantity, setTicketQuantity] = useState(0);
   return (
@@ -33,6 +24,7 @@ const TicketSection = ({ticket, totalPrice, setTotalPrice}) => {
       <Text>{ticket.name}</Text>
       <Text>Price: ${price}</Text>
       <View style={styles.quantityInput}>
+        {/* Minus button */}
         <TouchableOpacity
           onPress={() => {
             if (ticketQuantity > 0) {
@@ -43,28 +35,32 @@ const TicketSection = ({ticket, totalPrice, setTotalPrice}) => {
         >
           <Text
             style={
-              ticketQuantity > 0
-                ? styles.minusButton
-                : styles.disabledMinusButton
-            }
+                [styles.button,
+                ticketQuantity > 0
+                    ? styles.biOpButton
+                    : styles.disabledMinusButton
+            ]}
           >
             -
           </Text>
         </TouchableOpacity>
-        <TextInput value={ticketQuantity.toString()} />
+
+        {/* TicketQuantity */}
+        <Text>{ticketQuantity}</Text>
+
+        {/* Add button */}
         <TouchableOpacity
           onPress={() => {
             setTicketQuantity(ticketQuantity + 1);
             setTotalPrice(totalPrice + price);
           }}
         >
-          <Text style={styles.plusButton}>+</Text>
+          <Text style={styles.button}>+</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
 
 export function TicketDetailPage() {
   const route = useRoute();
@@ -79,96 +75,33 @@ export function TicketDetailPage() {
   };
 
   return (
-    <View style={styles.container}>
-      {fakeTicketList.map((ticket, index) => (
-          <TicketSection ticket={ticket} totalPrice={totalPrice} setTotalPrice={setTotalPrice} />
-      ))}
-      
-
-      {/* <View style={styles.eventDetails}>
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* Event detail */}
+      <View style={styles.eventDetails}>
         <Text>{event.name}</Text>
         <Text>{event.date}</Text>
         <Text>{event.location}</Text>
       </View>
-
-      <View style={styles.ticketList}>
-        <View style={styles.ticketBlock}>
-          <Text>Ticket Type 2</Text>
-          <Text>Price: ${ticket2Price}</Text>
-          <View style={styles.quantityInput}>
-            <TouchableOpacity
-              onPress={() => {
-                if (ticket2Quantity > 0) {
-                  setTicket2Quantity(ticket2Quantity - 1);
-                }
-              }}
-            >
-              <Text
-                style={
-                  ticket2Quantity > 0
-                    ? styles.minusButton
-                    : styles.disabledMinusButton
-                }
-              >
-                -
-              </Text>
-            </TouchableOpacity>
-            <TextInput value={ticket2Quantity.toString()} />
-            <TouchableOpacity
-              onPress={() => setTicket2Quantity(ticket2Quantity + 1)}
-            >
-              <Text style={styles.plusButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View> */}
-
-        {/* <View style={styles.ticketList}>
-                {ticketTypes.map((ticket, index) => (
-                    <View style={styles.ticketBlock} key={index}>
-                        <Text>{ticket.name}</Text>
-                        <Text>Price: ${ticket.price}</Text>
-                        <Text>Description: {ticket.description}</Text>
-                        <View style={styles.quantityInput}>
-                            <TouchableOpacity
-                                style={styles.plusButton}
-                                onPress={() => {
-                                    const updatedQuantities = [...ticketQuantities];
-                                    updatedQuantities[index] += 1;
-                                    setTicketQuantities(updatedQuantities);
-                                }}
-                            >
-                                <Text>+</Text>
-                            </TouchableOpacity>
-                            <TextInput value={ticketQuantities[index].toString()} />
-                            <TouchableOpacity
-                                style={ticketQuantities[index] > 0 ? styles.minusButton : styles.disabledMinusButton}
-                                onPress={() => {
-                                    if (ticketQuantities[index] > 0) {
-                                        const updatedQuantities = [...ticketQuantities];
-                                        updatedQuantities[index] -= 1;
-                                        setTicketQuantities(updatedQuantities);
-                                    }
-                                }}
-                            >
-                                <Text>-</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                ))}
-            </View> */}
+      {fakeTicketList.map((ticket, index) => (
+        <TicketSection
+          ticket={ticket}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
+        />
+      ))}
 
       <Text>Total Amount: ${totalPrice}</Text>
       <FloatingButton
         text='Pay with PayPal'
         handleClick={handlePayWithPayPal}
       />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -181,30 +114,30 @@ const styles = StyleSheet.create({
   },
   ticketBlock: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: 'grey',
     padding: 10,
     marginBottom: 10,
+    height: 400,
+    width: 200,
   },
   quantityInput: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  plusButton: {
+  button: {
     backgroundColor: 'blue',
     color: 'white',
-    padding: 10,
-    borderRadius: 5,
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    fontSize: 25,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
-  minusButton: {
+  biOpButton: {
     backgroundColor: 'blue',
-    color: 'white',
-    padding: 10,
-    borderRadius: 5,
   },
   disabledMinusButton: {
     backgroundColor: 'grey',
-    color: 'white',
-    padding: 10,
-    borderRadius: 5,
   },
 });
