@@ -4,12 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventList from './EventList';
 import { EventDetail } from './EventDetail';
-import { useNavigation } from '@react-navigation/native';
 import { TicketDetailPage } from './TicketDetail';
-import {fetchWordPressData} from './EventList';
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
-const CLIENT_ID = "Afl6QPkcTJaNm_WXsDvRvaPGVmajl0sKeWf47NNSR0bJUx49nMoHnsyZ81_0ccpGheEm_ah9en66575M";
+const CLIENT_ID =
+  'Afl6QPkcTJaNm_WXsDvRvaPGVmajl0sKeWf47NNSR0bJUx49nMoHnsyZ81_0ccpGheEm_ah9en66575M';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -19,16 +18,14 @@ export default function App() {
         <SafeAreaView style={styles.container}>
           <StatusBar style='auto' />
         </SafeAreaView>
-
         <Stack.Navigator initialRouteName='EventList'>
           <Stack.Screen name='EventList' component={EventList} />
           <Stack.Screen name='EventDetail' component={EventDetail} />
           <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
         </Stack.Navigator>
-        <PayPalScriptProvider options={{ "client-id": CLIENT_ID }}/>
+        {/* <PayPalScriptProvider options={{ 'client-id': CLIENT_ID }} /> */}
       </NavigationContainer>
     </>
-    // <TicketDetailPage />
   );
 }
 

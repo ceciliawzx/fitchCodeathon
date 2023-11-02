@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { FloatingButton } from './util';
 
 const fakeTicketList = [
   {
-    name: 'ticket1',
+    name: 'Ticket1',
     price: 100,
     description: 'this is ticket1',
   },
   {
-    name: 'ticket2',
+    name: 'Ticket2',
     price: 300,
     description: 'this is ticket2',
   },
@@ -21,8 +27,13 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const [ticketQuantity, setTicketQuantity] = useState(0);
   return (
     <View style={styles.ticketBlock}>
-      <Text>{ticket.name}</Text>
-      <Text>Price: ${price}</Text>
+      {/* TicketName and Price Display */}
+      <View style={styles.ticketNamePrice}>
+        <Text style={styles.ticketListText}>{ticket.name}</Text>
+        <Text style={styles.ticketListText}>Price: ${price}</Text>
+      </View>
+
+      {/* Quantity Display */}
       <View style={styles.quantityInput}>
         {/* Minus button */}
         <TouchableOpacity
@@ -34,11 +45,11 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
           }}
         >
           <Text
-            style={
-                [styles.button,
-                ticketQuantity > 0
-                    ? styles.biOpButton
-                    : styles.disabledMinusButton
+            style={[
+              styles.button,
+              ticketQuantity > 0
+                ? styles.biOpButton
+                : styles.disabledMinusButton,
             ]}
           >
             -
@@ -46,7 +57,9 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
         </TouchableOpacity>
 
         {/* TicketQuantity */}
-        <Text>{ticketQuantity}</Text>
+        <View style={styles.quantityContainer}>
+          <Text>{ticketQuantity}</Text>
+        </View>
 
         {/* Add button */}
         <TouchableOpacity
@@ -78,9 +91,10 @@ export function TicketDetailPage() {
     <ScrollView contentContainerStyle={styles.container}>
       {/* Event detail */}
       <View style={styles.eventDetails}>
-        <Text>{event.name}</Text>
-        <Text>{event.date}</Text>
-        <Text>{event.location}</Text>
+        <Text style={styles.eventTextDetailsTitle}>{event.acf.name}</Text>
+        <Text style={styles.eventTextDetails}>{event.acf.starttime}</Text>
+        <Text style={styles.eventTextDetails}>{event.acf.endtime}</Text>
+        <Text style={styles.eventTextDetails}>{event.acf.location}</Text>
       </View>
       {fakeTicketList.map((ticket, index) => (
         <TicketSection
@@ -104,25 +118,63 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+  },
+  quantityContainer: {
+    alignItems: 'center',
   },
   eventDetails: {
+    width: '100%',
+    marginTop: 20,
     marginBottom: 20,
+  },
+  eventTextDetailsTitle: {
+    marginBottom: 20,
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  eventTextDetails: {
+    fontWeight: 'bold',
+    textAlign: 'right',
+    marginRight: 20,
   },
   ticketList: {
     marginBottom: 20,
   },
+  ticketNamePrice: {
+    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  ticketListText: {
+    fontSize: 20,
+    marginBottom: 20,
+    textAlignVertical: 'center',
+  },
   ticketBlock: {
-    borderWidth: 1,
-    borderColor: 'grey',
+    display: 'flex',
+    flexDirection: 'column',
     padding: 10,
-    marginBottom: 10,
-    height: 400,
-    width: 200,
+    marginBottom: 20,
+    height: 200,
+    width: 300,
+    backgroundColor: '#fff', // Set a background color for the shadow to be visible
+    borderRadius: 9, // Optional: if you want rounded corners
+    shadowOpacity: 0.1, // Shadow visibility
+    shadowRadius: 5, // How blurred the shadow should be
+    shadowColor: '#000', // Shadow color
+    shadowOffset: { height: 3, width: 0 }, // Shadow position
+    elevation: 3, // Elevation for Android
+    marginTop: 20,
+    marginLeft: 10, // Optional: if you want some space from the left edge of the screen
+    marginRight: 10, // Optional: if you want some space from the right edge of the screen
   },
   quantityInput: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '50%',
   },
   button: {
     backgroundColor: 'blue',

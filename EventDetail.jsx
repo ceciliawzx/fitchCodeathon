@@ -45,7 +45,7 @@ export const EventDetail = () => {
         <View
           style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}
         >
-          <Text style={stylesDetails.bigEventName}>{event.name}</Text>
+          <Text style={stylesDetails.bigEventName}>{event.acf.name}</Text>
           <View
             style={{
               display: 'flex',
@@ -58,8 +58,9 @@ export const EventDetail = () => {
             <View
               style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
             >
-              <Text style={stylesDetails.eventTime}>{dateStr}</Text>
-              <Text style={stylesDetails.eventTimeSmall}>{timeStr}</Text>
+              {/* TODO: parse date and time */}
+              <Text style={stylesDetails.eventTime}>{event.acf.starttime}</Text>
+              <Text style={stylesDetails.eventTimeSmall}>{event.acf.endtime}</Text>
             </View>
           </View>
           <View
@@ -73,8 +74,8 @@ export const EventDetail = () => {
             <View
               style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
             >
-              <Text style={stylesDetails.eventTime}>{location}</Text>
-              <Text style={stylesDetails.eventTimeSmall}>{detailLoc}</Text>
+              <Text style={stylesDetails.eventTime}>{event.acf.location}</Text>
+              <Text style={stylesDetails.eventTimeSmall}>{event.acf.location}</Text>
             </View>
           </View>
         </View>

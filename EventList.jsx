@@ -82,7 +82,8 @@ const EventList = () => {
       )
   }, []);
 
-  console.log(response)
+  // console.log(response);
+  // console.log(response["acf"]);
 
   const navigation = useNavigation();
 
@@ -94,11 +95,11 @@ const EventList = () => {
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleEventPress(item)}>
       <SafeAreaView style={styles.eventItem}>
-        <Image style={styles.eventImage} source={item.image} />
+        <Image style={styles.eventImage} source={item.acf.image} />
         <View>
-          <Text style={styles.eventName}>{item.name}</Text>
-          <Text style={styles.eventDate}>{item.date}</Text>
-          <Text style={styles.eventDate}>{item.location}</Text>
+          <Text style={styles.eventName}>{item.acf.name}</Text>
+          <Text style={styles.eventDate}>{item.acf.starttime}</Text>
+          <Text style={styles.eventDate}>{item.acf.location}</Text>
         </View>
       </SafeAreaView>
     </TouchableOpacity>
