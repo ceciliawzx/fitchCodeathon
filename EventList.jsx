@@ -9,6 +9,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { API, graphqlOperation } from 'aws-amplify';
+import { listYourTableNameItems } from './graphql/queries';
+import { createSignUps } from './graphql/mutations';
+
+// test api const
+const newEvents = await API.graphql({
+  query: createEvents,
+  variables: {
+      input: {
+  "name": "Lorem ipsum dolor sit amet",
+  "dateTime": "1970-01-01T12:30:23.999Z",
+  "locationPlusCode": "Lorem ipsum dolor sit amet",
+  "Tickets": []
+}
+  }
+});
+
 
 const eventsData = [
   {
