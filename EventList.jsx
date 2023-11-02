@@ -106,7 +106,7 @@ const EventList = () => {
 
   return (
     <FlatList
-      data={eventsData}
+      data={response}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
     />
