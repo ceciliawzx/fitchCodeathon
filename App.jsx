@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventList from './EventList';
 import { EventDetail } from './EventDetail';
 import { useNavigation } from '@react-navigation/native';
+import { TicketDetailPage } from './TicketDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,9 +20,11 @@ export default function App() {
         <Stack.Navigator initialRouteName='EventList'>
           <Stack.Screen name='EventList' component={EventList} />
           <Stack.Screen name='EventDetail' component={EventDetail} />
+          <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
+    // <TicketDetailPage />
   );
 }
 

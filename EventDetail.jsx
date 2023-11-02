@@ -6,8 +6,11 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { FloatingButton } from './util';
+
 
 export const EventDetail = () => {
   const route = useRoute();
@@ -23,47 +26,61 @@ export const EventDetail = () => {
   const location = 'London';
   const detailLoc = 'Imperial College London';
 
+  const navigation = useNavigation();
+
+  const handleRegisterClicked = () => {
+    // Navigate to the EventDetail screen with the selectedEvent
+    navigation.navigate('TicketDetail', { event: event });
+  };
+
   return (
-    <ScrollView
-      contentContainerStyle={{
-        display: 'flex',
-        alignContent: 'center',
-      }}
-    >
-      <Image style={stylesDetails.eventImage} source={`${event.image}`} />
-      <View
-        style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}
+    <>
+      <ScrollView
+        contentContainerStyle={{
+          display: 'flex',
+          alignContent: 'center',
+        }}
       >
-        <Text style={stylesDetails.bigEventName}>{event.name}</Text>
+        <Image style={stylesDetails.eventImage} source={event.image} />
         <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: 30,
-          }}
+          style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}
         >
-          <Image source={dateImg} style={stylesDetails.icon} />
-          {/* <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}> */}
-          <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}>
-            <Text style={stylesDetails.eventTime}>{dateStr}</Text>
-            <Text style={stylesDetails.eventTimeSmall}>{timeStr}</Text>
+          <Text style={stylesDetails.bigEventName}>{event.name}</Text>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginTop: 30,
+            }}
+          >
+            <Image source={dateImg} style={stylesDetails.icon} />
+            {/* <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}> */}
+            <View
+              style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
+            >
+              <Text style={stylesDetails.eventTime}>{dateStr}</Text>
+              <Text style={stylesDetails.eventTimeSmall}>{timeStr}</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginTop: 30,
+            }}
+          >
+            <Image source={locImg} style={stylesDetails.icon} />
+            <View
+              style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
+            >
+              <Text style={stylesDetails.eventTime}>{location}</Text>
+              <Text style={stylesDetails.eventTimeSmall}>{detailLoc}</Text>
+            </View>
           </View>
         </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: 30,
-          }}
-        >
-          <Image source={locImg} style={stylesDetails.icon} />
-          <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}>
-            <Text style={stylesDetails.eventTime}>{location}</Text>
-            <Text style={stylesDetails.eventTimeSmall}>{detailLoc}</Text>
-          </View>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <FloatingButton text="Register" handleClick={handleRegisterClicked}/>
+    </>
   );
 };
 
@@ -82,7 +99,6 @@ const stylesDetails = StyleSheet.create({
     fontSize: 35,
     alignContent: 'left',
     marginBottom: 15,
-    fontFamily: '{Arial Rounded MT Bold}',
   },
   eventTime: {
     fontSize: 15,
@@ -101,5 +117,4 @@ const stylesDetails = StyleSheet.create({
     height: 300,
     marginBottom: 20,
   },
-  
 });
