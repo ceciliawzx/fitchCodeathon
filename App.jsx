@@ -6,7 +6,10 @@ import EventList from './EventList';
 import { EventDetail } from './EventDetail';
 import { useNavigation } from '@react-navigation/native';
 import { TicketDetailPage } from './TicketDetail';
+import {fetchWordPressData} from './EventList';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
+const CLIENT_ID = "Afl6QPkcTJaNm_WXsDvRvaPGVmajl0sKeWf47NNSR0bJUx49nMoHnsyZ81_0ccpGheEm_ah9en66575M";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -22,6 +25,7 @@ export default function App() {
           <Stack.Screen name='EventDetail' component={EventDetail} />
           <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
         </Stack.Navigator>
+        <PayPalScriptProvider options={{ "client-id": CLIENT_ID }}/>
       </NavigationContainer>
     </>
     // <TicketDetailPage />

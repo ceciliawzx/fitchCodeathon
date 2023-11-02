@@ -26,11 +26,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "fb710ebc-b4b9-4b6b-8dc4-0f86398bac43"
-      }
-    },
     "owner": "ceciliawzx"
   }
 }

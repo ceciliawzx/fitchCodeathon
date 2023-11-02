@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 
 const eventsData = [
   {
@@ -65,6 +66,24 @@ const eventsData = [
 ];
 
 const EventList = () => {
+  let [error, setError] = useState()
+  let [response, setResponse] = useState()
+
+  useEffect(() => {
+    fetch("http://34.201.135.72/?rest_route=/wp/v2/normalevent")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setResponse(result)
+        },
+        (error) => {
+          setError(error)
+        }
+      )
+  }, []);
+
+  console.log(response)
+
   const navigation = useNavigation();
 
   const handleEventPress = (eventItem) => {
@@ -87,7 +106,7 @@ const EventList = () => {
 
   return (
     <FlatList
-      data={eventsData}
+      data={response}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
     />
