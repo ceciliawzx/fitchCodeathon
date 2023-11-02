@@ -21,5 +21,12 @@
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
     }
+  },
+  "function": {
+    "fitchcodathon3ba60993": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
   }
 }

@@ -10,6 +10,11 @@
       "StackName": "amplify-fitchcodathon-staging-125424",
       "StackId": "arn:aws:cloudformation:eu-west-2:811370949174:stack/amplify-fitchcodathon-staging-125424/f3260760-797e-11ee-a017-0ac6d2aa84e4",
       "AmplifyAppId": "dakgmkbcfbxjr"
+    },
+    "categories": {
+      "function": {
+        "fitchcodathon3ba60993": {}
+      }
     }
   }
 }
