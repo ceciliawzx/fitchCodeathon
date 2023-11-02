@@ -9,50 +9,97 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
-
 export const EventDetail = () => {
-
   const route = useRoute();
   const { event } = route.params;
 
+  const dateImg = require('./assets/date-icon.jpg');
+  const locImg = require('./assets/loc-icon.jpg');
+
+  // TODO: parse the date and time string from json data
+  const dateStr = 'December 5, 2023';
+  const timeStr = '19:00 ~ 21:00';
+
+  const location = 'London';
+  const detailLoc = 'Imperial College London';
+
   return (
-    <ScrollView style={{ display: 'flex'}}>
-      <Image style={styles.eventImage} source={`${event.image}`} />
-      <Text style={{ fontSize: 96 }}>{`${event.name}`}</Text>
-      <Text style={{ fontSize: 30 }}>{`${event.date}`}</Text>
-      <Text style={{ fontSize: 30 }}>{`${event.location}`}</Text>
+    <ScrollView
+      contentContainerStyle={{
+        display: 'flex',
+        alignContent: 'center',
+      }}
+    >
+      <Image style={stylesDetails.eventImage} source={`${event.image}`} />
+      <View
+        style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}
+      >
+        <Text style={stylesDetails.bigEventName}>{event.name}</Text>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginTop: 30,
+          }}
+        >
+          <Image source={dateImg} style={stylesDetails.icon} />
+          {/* <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}> */}
+          <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}>
+            <Text style={stylesDetails.eventTime}>{dateStr}</Text>
+            <Text style={stylesDetails.eventTimeSmall}>{timeStr}</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginTop: 30,
+          }}
+        >
+          <Image source={locImg} style={stylesDetails.icon} />
+          <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}>
+            <Text style={stylesDetails.eventTime}>{location}</Text>
+            <Text style={stylesDetails.eventTimeSmall}>{detailLoc}</Text>
+          </View>
+        </View>
+      </View>
     </ScrollView>
   );
 };
 
 const Ticket = (ticket) => {
-  return (
-    <></>
-  );
-}
+  return <></>;
+};
 
-const styles = {
-  eventItem: {
-    flexDirection: 'row',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+const stylesDetails = StyleSheet.create({
+  icon: {
+    width: 30,
+    height: 30,
+    marginRight: 20,
+    marginBottom: 20,
   },
-  eventImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 5,
-    marginRight: 16,
+  bigEventName: {
+    fontSize: 35,
+    alignContent: 'left',
+    marginBottom: 15,
+    fontFamily: '{Arial Rounded MT Bold}',
   },
-  eventInfo: {
-    flex: 1,
+  eventTime: {
+    fontSize: 15,
+    alignContent: 'left',
   },
-  eventName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  eventDate: {
-    fontSize: 14,
+  eventTimeSmall: {
+    fontSize: 13,
+    alignContent: 'left',
     color: '#888',
   },
-};
+  eventImage: {
+    // width: '90%',
+    // height: 200,
+    // borderRadius: 20,
+    width: '100%',
+    height: 300,
+    marginBottom: 20,
+  },
+  
+});

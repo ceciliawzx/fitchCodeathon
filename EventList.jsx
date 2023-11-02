@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 const eventsData = [
   {
     id: '1',
-    name: 'Event 1',
+    name: 'This is Event 1!!!',
     date: 'October 10, 2023',
     location: 'London',
     description: 'this is an event',
@@ -21,12 +21,12 @@ const eventsData = [
       {
         type: 1,
         price: 5.5,
-        currency: "GBP",
+        currency: 'GBP',
       },
       {
         type: 2,
         price: 10,
-        currency: "GBP",
+        currency: 'GBP',
       },
     ],
     image: require('./assets/contact-bg.png'),
@@ -41,7 +41,7 @@ const eventsData = [
       {
         type: 3,
         price: 5,
-        currency: "GBP",
+        currency: 'GBP',
       },
     ],
     image: require('./assets/home-bg.png'),
@@ -56,7 +56,7 @@ const eventsData = [
       {
         type: 1,
         price: 8,
-        currency: "GBP",
+        currency: 'GBP',
       },
     ],
     image: require('./assets/project-bg.png'),
@@ -76,8 +76,11 @@ const EventList = () => {
     <TouchableOpacity onPress={() => handleEventPress(item)}>
       <SafeAreaView style={styles.eventItem}>
         <Image style={styles.eventImage} source={item.image} />
-        <Text style={styles.eventName}>{item.name}</Text>
-        <Text style={styles.eventDate}>{item.date}</Text>
+        <View>
+          <Text style={styles.eventName}>{item.name}</Text>
+          <Text style={styles.eventDate}>{item.date}</Text>
+          <Text style={styles.eventDate}>{item.location}</Text>
+        </View>
       </SafeAreaView>
     </TouchableOpacity>
   );
@@ -92,16 +95,31 @@ const EventList = () => {
 };
 
 const styles = StyleSheet.create({
+  // eventItem: {
+  //   flexDirection: 'row',
+  //   padding: 16,
+  //   shadowRadius: 2,
+  //   shadowColor: '#000'
+  // },
   eventItem: {
+    height: 120,
     flexDirection: 'row',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    backgroundColor: '#fff', // Set a background color for the shadow to be visible
+    borderRadius: 8, // Optional: if you want rounded corners
+    shadowOpacity: 0.1, // Shadow visibility
+    shadowRadius: 5, // How blurred the shadow should be
+    shadowColor: '#000', // Shadow color
+    shadowOffset: { height: 3, width: 0 }, // Shadow position
+    elevation: 3, // Elevation for Android
+    marginTop: 20,
+    marginLeft: 10, // Optional: if you want some space from the left edge of the screen
+    marginRight: 10, // Optional: if you want some space from the right edge of the screen
+    alignItems: 'center',
   },
   eventImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 5,
+    width: 120,
+    height: 120,
+    borderRadius: 8,
     marginRight: 16,
   },
   eventInfo: {
