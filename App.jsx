@@ -5,9 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventList from './EventList';
 import { EventDetail } from './EventDetail';
 import { useNavigation } from '@react-navigation/native';
-import Amplify from 'aws-amplify';
-import config from './aws-exports';
-Amplify.configure(config);
+import {fetchWordPressData} from './EventList';
 
 
 const Stack = createNativeStackNavigator();
