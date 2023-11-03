@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { format } from "date-fns";
 import {
   View,
   Text,
@@ -8,19 +9,10 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { FloatingButton } from './util';
+// import { ScrollView } from '@react-native-gesture-handler';
+// import { ScrollView } from 'react-native';
 
-const fakeTicketList = [
-  {
-    name: 'Ticket1',
-    price: 100,
-    description: 'this is ticket1',
-  },
-  {
-    name: 'Ticket2',
-    price: 300,
-    description: 'this is ticket2',
-  },
-];
+const timeformat = "dd-MM-yyyy    HH:mma"
 
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
@@ -30,7 +22,7 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
       {/* TicketName and Price Display */}
       <View style={styles.ticketNamePrice}>
         <Text style={styles.ticketListText}>{ticket.name}</Text>
-        <Text style={styles.ticketListText}>Price: ${price}</Text>
+        <Text style={styles.ticketListText}>Price: {price} {ticketList[0].currency}</Text>
       </View>
 
       {/* Quantity Display */}
@@ -87,16 +79,35 @@ export function TicketDetailPage() {
     // You can use PayPal SDK or a web view for the payment process
   };
 
+  {/* Create Ticket List */}
+  ticketList = [
+    {
+      name: event.acf.ticket.ticket_name,
+      price: event.acf.ticket.price,
+      currency: event.acf.ticket.currency,
+    }
+  ];
+
+  // if have another ticket, add it
+  if (event.acf.ticket_2.ticket_name_2 != "" && event.acf.ticket_2.price_2 != "" && event.acf.ticket_2.currency_2 != "") {
+    ticketList.push({
+      name: event.acf.ticket_2.ticket_name_2,
+      price: event.acf.ticket_2.price_2,
+      currency: event.acf.ticket_2.currency_2,
+    })
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Event detail */}
       <View style={styles.eventDetails}>
         <Text style={styles.eventTextDetailsTitle}>{event.acf.name}</Text>
-        <Text style={styles.eventTextDetails}>{event.acf.starttime}</Text>
-        <Text style={styles.eventTextDetails}>{event.acf.endtime}</Text>
+        <Text style={styles.eventTextDetails}>{format (new Date(event.acf.starttime), timeformat)}</Text>
+        <Text style={styles.eventTextDetails}>{format (new Date(event.acf.endtime), timeformat)}</Text>
         <Text style={styles.eventTextDetails}>{event.acf.location}</Text>
       </View>
-      {fakeTicketList.map((ticket, index) => (
+
+      {ticketList.map((ticket, index) => (
         <TicketSection
           ticket={ticket}
           totalPrice={totalPrice}
@@ -104,7 +115,7 @@ export function TicketDetailPage() {
         />
       ))}
 
-      <Text>Total Amount: ${totalPrice}</Text>
+      <Text>Total Amount: {totalPrice} {ticketList[0].currency}</Text>
       <FloatingButton
         text='Pay with PayPal'
         handleClick={handlePayWithPayPal}
@@ -121,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   quantityContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   eventDetails: {
     width: '100%',
@@ -157,7 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 10,
     marginBottom: 20,
-    height: 200,
+    height: 150,
     width: 300,
     backgroundColor: '#fff', // Set a background color for the shadow to be visible
     borderRadius: 9, // Optional: if you want rounded corners
@@ -173,8 +184,10 @@ const styles = StyleSheet.create({
   quantityInput: {
     flexDirection: 'row',
     alignItems: 'center',
+    // alignSelf: 'right',
     justifyContent: 'space-between',
     width: '50%',
+    marginLeft: '50%',
   },
   button: {
     backgroundColor: 'blue',

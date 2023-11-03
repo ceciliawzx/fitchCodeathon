@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { format } from "date-fns";
 import {
   View,
   Text,
@@ -87,29 +88,42 @@ const EventList = () => {
 
   const navigation = useNavigation();
 
+  const timeformat = "dd-MM-yyyy    HH:mma"
+  
   const handleEventPress = (eventItem) => {
     // Navigate to the EventDetail screen with the selectedEvent
     navigation.navigate('EventDetail', { event: eventItem });
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }) => {
+
+    // if no image uploaded, use default image
+    const default_image = "http://34.201.135.72/wp-content/uploads/2023/11/charity-team-building-e1651509883636.png"
+    const renderedContent = item.content.rendered;
+    const match = renderedContent.match(/src="([^"]+)"/);
+    const imagePath = match ? match[1] : default_image;
+
+    return (
     <TouchableOpacity onPress={() => handleEventPress(item)}>
       <SafeAreaView style={styles.eventItem}>
-        <Image style={styles.eventImage} source={item.acf.image} />
+        <Image style={styles.eventImage} source={{ uri: imagePath }} />
         <View>
           <Text style={styles.eventName}>{item.acf.name}</Text>
-          <Text style={styles.eventDate}>{item.acf.starttime}</Text>
+          <Text style={styles.eventDate}>{format(new Date(item.acf.starttime), timeformat)}</Text>
           <Text style={styles.eventDate}>{item.acf.location}</Text>
         </View>
       </SafeAreaView>
     </TouchableOpacity>
-  );
+    )
+
+  };
 
   return (
     <FlatList
       data={response}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id
+      }
     />
   );
 };

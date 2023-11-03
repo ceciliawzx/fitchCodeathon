@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from "date-fns";
 import {
   View,
   Text,
@@ -13,11 +14,13 @@ import { FloatingButton } from './util';
 
 
 export const EventDetail = () => {
+  const timeformat = "dd-MM-yyyy    HH:mma"
   const route = useRoute();
   const { event } = route.params;
 
   const dateImg = require('./assets/date-icon.jpg');
   const locImg = require('./assets/loc-icon.jpg');
+  const descripImg = require('./assets/description.png');
 
   // TODO: parse the date and time string from json data
   const dateStr = 'December 5, 2023';
@@ -33,54 +36,90 @@ export const EventDetail = () => {
     navigation.navigate('TicketDetail', { event: event });
   };
 
+  // if no image uploaded, use default image
+  const default_image = "http://34.201.135.72/wp-content/uploads/2023/11/charity-team-building-e1651509883636.png"
+  const renderedContent = event.content.rendered;
+  const match = renderedContent.match(/src="([^"]+)"/);
+  const imagePath = match ? match[1] : default_image;
+
   return (
     <>
-      <ScrollView
-        contentContainerStyle={{
-          display: 'flex',
-          alignContent: 'center',
-        }}
-      >
-        <Image style={stylesDetails.eventImage} source={event.image} />
-        <View
-          style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}
+      <View style={stylesDetails.containerEvent}>
+        <ScrollView
+          contentContainerStyle={{
+            display: 'flex',
+            alignContent: 'center',
+          }}
         >
-          <Text style={stylesDetails.bigEventName}>{event.acf.name}</Text>
+          <Image style={stylesDetails.eventImage} source={{ uri: imagePath }} />
           <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginTop: 30,
-            }}
+            style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}
           >
-            <Image source={dateImg} style={stylesDetails.icon} />
-            {/* <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}> */}
+            <Text style={stylesDetails.bigEventName}>{event.acf.name}</Text>
             <View
-              style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginTop: 30,
+              }}
             >
-              {/* TODO: parse date and time */}
-              <Text style={stylesDetails.eventTime}>{event.acf.starttime}</Text>
-              <Text style={stylesDetails.eventTimeSmall}>{event.acf.endtime}</Text>
+              <Image source={dateImg} style={stylesDetails.icon} />
+              {/* <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}> */}
+              <View
+                style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
+              >
+                {/* TODO: parse date and time */}
+                <Text style={stylesDetails.eventTime}>{format (new Date(event.acf.starttime), timeformat)}</Text>
+                <Text style={stylesDetails.eventTimeSmall}>{"to"}</Text>
+                <Text style={stylesDetails.eventTime}>{format (new Date(event.acf.endtime), timeformat)}</Text>
+              </View>
+            </View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginTop: 30,
+              }}
+            >
+              <Image source={locImg} style={stylesDetails.icon} />
+              <View
+                style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
+              >
+                <Text style={stylesDetails.eventTime}>{event.acf.location}</Text>
+                <Text style={stylesDetails.eventTimeSmall}>{event.acf.location}</Text>
+              </View>
+            </View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginTop: 30,
+              }}
+            >
+              <Image source={descripImg} style={stylesDetails.icon} />
+              <View
+                style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
+              >
+                <Text style={stylesDetails.eventTime}>{"Description"}</Text>
+                <Text style={stylesDetails.eventTimeSmall}>{event.acf.description}</Text>
+                <Text></Text>
+                <Text></Text>
+                <Text></Text>
+                <Text></Text>
+                <Text></Text>
+                <Text></Text>
+              </View>
             </View>
           </View>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginTop: 30,
-            }}
-          >
-            <Image source={locImg} style={stylesDetails.icon} />
-            <View
-              style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
-            >
-              <Text style={stylesDetails.eventTime}>{event.acf.location}</Text>
-              <Text style={stylesDetails.eventTimeSmall}>{event.acf.location}</Text>
-            </View>
-          </View>
+        </ScrollView>
+        <View lowerSectionStyle={{
+            display: 'flex',
+            alignContent: 'center',
+            height: '10%',
+          }}>
+          <FloatingButton text="Register" handleClick={handleRegisterClicked} />
         </View>
-      </ScrollView>
-      <FloatingButton text="Register" handleClick={handleRegisterClicked}/>
+      </View>
     </>
   );
 };
@@ -90,6 +129,10 @@ const Ticket = (ticket) => {
 };
 
 const stylesDetails = StyleSheet.create({
+  containerEvent: {
+    flex: 1,
+    flexDirection: 'column',
+  },
   icon: {
     width: 30,
     height: 30,
@@ -107,7 +150,7 @@ const stylesDetails = StyleSheet.create({
   },
   eventTimeSmall: {
     fontSize: 13,
-    alignContent: 'left',
+    textAlig: 'lef',
     color: '#888',
   },
   eventImage: {
