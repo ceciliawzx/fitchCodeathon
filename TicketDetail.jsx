@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { FloatingButton } from './util';
-// import { ScrollView } from '@react-native-gesture-handler';
-// import { ScrollView } from 'react-native';
+import emailjs from 'emailjs-com';
 
 const timeformat = "dd-MM-yyyy    HH:mma"
 
@@ -79,6 +78,25 @@ export function TicketDetailPage() {
     // You can use PayPal SDK or a web view for the payment process
   };
 
+  // const sendConfirmationEmail = () => {
+  //   const serviceID = 'service_fqjmp5m'; // Replace with your EmailJS service ID
+  //   const templateID = 'template_m55nx7c'; // Replace with your EmailJS template ID
+  //   const userID = 'VHbPq5m4DOMVZjOrb'; // Replace with your EmailJS user ID
+
+  //   emailjs.init(userID);
+
+  //   emailjs.send(serviceID, templateID, {
+  //     to_email: 'siyuwan15@gmail.com', // Replace with the recipient's email address
+  //     message: 'Thank you for registering for the event!', // Your email message
+  //   })
+  //     .then((response) => {
+  //       console.log('Email sent successfully:', response);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error sending email:', error);
+  //     });
+  // };
+
   {/* Create Ticket List */}
   ticketList = [
     {
@@ -120,6 +138,10 @@ export function TicketDetailPage() {
         text='Pay with PayPal'
         handleClick={handlePayWithPayPal}
       />
+      {/* <FloatingButton
+        text="Send Confirmation Email"
+        handleClick={sendConfirmationEmail}
+      /> */}
     </ScrollView>
   );
 }

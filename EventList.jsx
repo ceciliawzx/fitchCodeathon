@@ -74,6 +74,7 @@ const EventList = () => {
   const [response, setResponse] = useState(null);
 
   const fetchData = async () => {
+
     try {
       const response = await fetch("http://34.201.135.72/?rest_route=/wp/v2/normalevent");
       const result = await response.json();
@@ -113,7 +114,7 @@ const EventList = () => {
     const imagePath = match ? match[1] : default_image;
 
     return (
-
+    <>
     <TouchableWithoutFeedback onPress={() => handleEventPress(item)}>
       <SafeAreaView style={styles.eventItem}>
         <Image style={styles.eventImage} source={{ uri: imagePath }} />
@@ -124,11 +125,14 @@ const EventList = () => {
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback >
+    </>
     )
 
   };
 
   return (
+    <>
+
     <FlatList
       data={response}
       refreshControl={
@@ -138,6 +142,7 @@ const EventList = () => {
       keyExtractor={(item) => item.id
       }
     />
+    </>
   );
 };
 
@@ -180,6 +185,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#888',
   },
+
+  aboutButton: {
+    height: 360,
+    flexDirection: 'row',
+    backgroundColor: '#fff', // Set a background color for the shadow to be visible
+    borderRadius: 8, // Optional: if you want rounded corners
+    shadowOpacity: 0.1, // Shadow visibility
+    shadowRadius: 5, // How blurred the shadow should be
+    shadowColor: '#000', // Shadow color
+    shadowOffset: { height: 3, width: 0 }, // Shadow position
+    elevation: 3, // Elevation for Android
+    marginTop: 20,
+    marginLeft: 10, // Optional: if you want some space from the left edge of the screen
+    marginRight: 10, // Optional: if you want some space from the right edge of the screen
+    alignItems: 'center',
+  }
 });
 
 export default EventList;
