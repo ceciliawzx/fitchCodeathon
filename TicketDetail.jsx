@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
-// import { ScrollView } from '@react-native-gesture-handler';
-// import { ScrollView } from 'react-native';
+import emailjs from 'emailjs-com';
 
   const timeformat = "EEEE, LLLL dd · HH:mm"
 
@@ -90,9 +89,26 @@ export function TicketDetailPage() {
     });
   };
 
-  {
-    /* Create Ticket List */
-  }
+  // const sendConfirmationEmail = () => {
+  //   const serviceID = 'service_fqjmp5m'; // Replace with your EmailJS service ID
+  //   const templateID = 'template_m55nx7c'; // Replace with your EmailJS template ID
+  //   const userID = 'VHbPq5m4DOMVZjOrb'; // Replace with your EmailJS user ID
+
+  //   emailjs.init(userID);
+
+  //   emailjs.send(serviceID, templateID, {
+  //     to_email: 'siyuwan15@gmail.com', // Replace with the recipient's email address
+  //     message: 'Thank you for registering for the event!', // Your email message
+  //   })
+  //     .then((response) => {
+  //       console.log('Email sent successfully:', response);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error sending email:', error);
+  //     });
+  // };
+
+  {/* Create Ticket List */}
   ticketList = [
     {
       name: event.acf.ticket.ticket_name,
@@ -143,6 +159,10 @@ export function TicketDetailPage() {
         text='Pay with PayPal'
         handleClick={handlePayWithPayPal}
       />
+      {/* <FloatingButton
+        text="Send Confirmation Email"
+        handleClick={sendConfirmationEmail}
+      /> */}
     </ScrollView>
   );
 }
