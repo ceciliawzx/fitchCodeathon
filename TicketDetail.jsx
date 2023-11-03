@@ -182,10 +182,12 @@ export function TicketDetailPage() {
           setTotalPrice={setTotalPrice}
         />
       ))}
+
   
       <Text style={styles.totalPrice}>
         Total Price: {totalPrice} {ticketList[0].currency}
       </Text>
+      
       <FloatingButton
           text='Pay with PayPal'
           handleClick={() => {
@@ -194,6 +196,8 @@ export function TicketDetailPage() {
           }}
           disabled={totalPrice === 0}
     />
+
+
 
     </ScrollView>
   );
