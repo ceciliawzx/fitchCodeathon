@@ -6,6 +6,8 @@ import EventList from './EventList';
 import { EventDetail } from './EventDetail';
 import { TicketDetailPage } from './TicketDetail';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { PayPal } from './Paypal';
+
 
 const CLIENT_ID =
   'Afl6QPkcTJaNm_WXsDvRvaPGVmajl0sKeWf47NNSR0bJUx49nMoHnsyZ81_0ccpGheEm_ah9en66575M';
@@ -22,6 +24,7 @@ export default function App() {
           <Stack.Screen name='EventList' component={EventList} />
           <Stack.Screen name='EventDetail' component={EventDetail} />
           <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
+          <Stack.Screen name="PayPal" component={PayPal} />
         </Stack.Navigator>
         {/* <PayPalScriptProvider options={{ 'client-id': CLIENT_ID }} /> */}
       </NavigationContainer>
