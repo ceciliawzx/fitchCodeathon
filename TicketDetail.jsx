@@ -11,7 +11,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
 import emailjs from 'emailjs-com';
 
-const timeformat = 'dd-MM-yyyy    HH:mma';
+  const timeformat = "EEEE, LLLL dd · HH:mm"
 
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
@@ -33,7 +33,7 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
           onPress={() => {
             if (ticketQuantity > 0) {
               setTicketQuantity(ticketQuantity - 1);
-              setTotalPrice(totalPrice - price);
+              setTotalPrice((prevTotalPrice) => prevTotalPrice - price);
             }
           }}
         >
@@ -58,7 +58,7 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
         <TouchableOpacity
           onPress={() => {
             setTicketQuantity(ticketQuantity + 1);
-            setTotalPrice(totalPrice + price);
+            setTotalPrice((prevTotalPrice) => prevTotalPrice + price);
           }}
         >
           <Text style={styles.button}>+</Text>
@@ -77,15 +77,11 @@ export function TicketDetailPage() {
   const navigation = useNavigation();
 
   const handlePayWithPayPal = () => {
-    // Implement PayPal integration here
-    // This function will be called when the "Pay with PayPal" button is pressed
-    // You can use PayPal SDK or a web view for the payment process
-    // Here you should pass all the necessary details to the PayPal component
-    // This could include the total amount, currency, and any other data required for the payment
     navigation.navigate('PayPal', {
       totalPrice: totalPrice,
       currency: ticketList[0].currency,
-      // Add any other props you need to pass
+      event: event,
+      navigation: navigation,
     });
   };
 
@@ -146,6 +142,7 @@ export function TicketDetailPage() {
 
       {ticketList.map((ticket, index) => (
         <TicketSection
+          key={ticket.name}
           ticket={ticket}
           totalPrice={totalPrice}
           setTotalPrice={setTotalPrice}
@@ -158,6 +155,7 @@ export function TicketDetailPage() {
       <FloatingButton
         text='Pay with PayPal'
         handleClick={handlePayWithPayPal}
+        disabled={totalPrice === 0}
       />
       {/* <FloatingButton
         text="Send Confirmation Email"
@@ -173,6 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+    backgroundColor: 'white',
   },
   quantityContainer: {
     // alignItems: 'center',
@@ -229,11 +228,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // alignSelf: 'right',
     justifyContent: 'space-between',
-    width: '50%',
-    marginLeft: '50%',
+    width: '45%',
+    marginLeft: '55%',
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#6DB665',
     color: 'white',
     width: 40,
     height: 40,
@@ -243,9 +242,13 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   biOpButton: {
-    backgroundColor: 'blue',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    backgroundColor: '#6DB665',
   },
   disabledMinusButton: {
     backgroundColor: 'grey',
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
 });
