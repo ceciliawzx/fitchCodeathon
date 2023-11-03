@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "fitchcode",
     "name": "AwesomeProject",
     "slug": "fitchcode-amplify",
     "version": "1.0.0",
@@ -15,13 +16,25 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourapp.package",
+      "infoPlist": {
+        "CFBundleURLTypes": [{
+          "CFBundleURLSchemes": ["fitchcode"]
+        }]
+      }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "package": "com.yourapp.package",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "fitchcode"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

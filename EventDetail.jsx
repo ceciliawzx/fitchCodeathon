@@ -141,16 +141,14 @@ const stylesDetails = StyleSheet.create({
   },
   bigEventName: {
     fontSize: 35,
-    alignContent: 'left',
     marginBottom: 15,
   },
   eventTime: {
     fontSize: 15,
-    alignContent: 'left',
   },
   eventTimeSmall: {
     fontSize: 13,
-    textAlig: 'lef',
+    textAlign: 'left',
     color: '#888',
   },
   eventImage: {
