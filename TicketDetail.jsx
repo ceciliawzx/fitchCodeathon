@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
+import emailjs from 'emailjs-com';
 
-const timeformat = 'dd-MM-yyyy    HH:mma';
+  const timeformat = "EEEE, LLLL dd · HH:mm"
 
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
@@ -84,9 +85,26 @@ export function TicketDetailPage() {
     });
   };
 
-  {
-    /* Create Ticket List */
-  }
+  // const sendConfirmationEmail = () => {
+  //   const serviceID = 'service_fqjmp5m'; // Replace with your EmailJS service ID
+  //   const templateID = 'template_m55nx7c'; // Replace with your EmailJS template ID
+  //   const userID = 'VHbPq5m4DOMVZjOrb'; // Replace with your EmailJS user ID
+
+  //   emailjs.init(userID);
+
+  //   emailjs.send(serviceID, templateID, {
+  //     to_email: 'siyuwan15@gmail.com', // Replace with the recipient's email address
+  //     message: 'Thank you for registering for the event!', // Your email message
+  //   })
+  //     .then((response) => {
+  //       console.log('Email sent successfully:', response);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error sending email:', error);
+  //     });
+  // };
+
+  {/* Create Ticket List */}
   ticketList = [
     {
       name: event.acf.ticket.ticket_name,
@@ -139,6 +157,10 @@ export function TicketDetailPage() {
         handleClick={handlePayWithPayPal}
         disabled={totalPrice === 0}
       />
+      {/* <FloatingButton
+        text="Send Confirmation Email"
+        handleClick={sendConfirmationEmail}
+      /> */}
     </ScrollView>
   );
 }
@@ -149,6 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+    backgroundColor: 'white',
   },
   quantityContainer: {
     // alignItems: 'center',
@@ -205,11 +228,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // alignSelf: 'right',
     justifyContent: 'space-between',
-    width: '50%',
-    marginLeft: '50%',
+    width: '45%',
+    marginLeft: '55%',
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#6DB665',
     color: 'white',
     width: 40,
     height: 40,
@@ -219,9 +242,9 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   biOpButton: {
-    backgroundColor: 'blue',
     textAlign: 'center',
     textAlignVertical: 'center',
+    backgroundColor: '#6DB665',
   },
   disabledMinusButton: {
     backgroundColor: 'grey',

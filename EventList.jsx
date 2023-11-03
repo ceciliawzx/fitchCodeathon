@@ -74,6 +74,7 @@ const EventList = () => {
   const [response, setResponse] = useState(null);
 
   const fetchData = async () => {
+
     try {
       const response = await fetch("http://34.201.135.72/?rest_route=/wp/v2/normalevent");
       const result = await response.json();
@@ -97,7 +98,7 @@ const EventList = () => {
 
   const navigation = useNavigation();
 
-  const timeformat = "dd-MM-yyyy    HH:mma"
+  const timeformat = "E, LLL dd · HH:mm"
   
   const handleEventPress = (eventItem) => {
     // Navigate to the EventDetail screen with the selectedEvent
@@ -113,41 +114,38 @@ const EventList = () => {
     const imagePath = match ? match[1] : default_image;
 
     return (
-
+    <>
     <TouchableWithoutFeedback onPress={() => handleEventPress(item)}>
       <SafeAreaView style={styles.eventItem}>
         <Image style={styles.eventImage} source={{ uri: imagePath }} />
         <View>
-          <Text style={styles.eventName}>{item.acf.name}</Text>
           <Text style={styles.eventDate}>{format(new Date(item.acf.starttime), timeformat)}</Text>
-          <Text style={styles.eventDate}>{item.acf.location}</Text>
+          <Text style={styles.eventName}>{item.acf.name}</Text>
+          <Text style={styles.eventLocation}>{item.acf.location}</Text>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback >
+    </>
     )
 
   };
-
+  
   return (
-    <FlatList
-      data={response}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-      }
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id
-      }
-    />
+    <View backgroundColor='white'>
+      <FlatList
+        data={response}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id
+        }
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // eventItem: {
-  //   flexDirection: 'row',
-  //   padding: 16,
-  //   shadowRadius: 2,
-  //   shadowColor: '#000'
-  // },
   eventItem: {
     height: 120,
     flexDirection: 'row',
@@ -159,8 +157,8 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 3, width: 0 }, // Shadow position
     elevation: 3, // Elevation for Android
     marginTop: 20,
-    marginLeft: 10, // Optional: if you want some space from the left edge of the screen
-    marginRight: 10, // Optional: if you want some space from the right edge of the screen
+    marginLeft: '5%', // Optional: if you want some space from the left edge of the screen
+    marginRight: '5%', // Optional: if you want some space from the right edge of the screen
     alignItems: 'center',
   },
   eventImage: {
@@ -175,11 +173,34 @@ const styles = StyleSheet.create({
   eventName: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 20,
   },
   eventDate: {
     fontSize: 14,
+    color: '#009900',
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  eventLocation: {
+    fontSize: 14,
     color: '#888',
   },
+
+  aboutButton: {
+    height: 360,
+    flexDirection: 'row',
+    backgroundColor: '#fff', // Set a background color for the shadow to be visible
+    borderRadius: 8, // Optional: if you want rounded corners
+    shadowOpacity: 0.1, // Shadow visibility
+    shadowRadius: 5, // How blurred the shadow should be
+    shadowColor: '#000', // Shadow color
+    shadowOffset: { height: 3, width: 0 }, // Shadow position
+    elevation: 3, // Elevation for Android
+    marginTop: 20,
+    marginLeft: 10, // Optional: if you want some space from the left edge of the screen
+    marginRight: 10, // Optional: if you want some space from the right edge of the screen
+    alignItems: 'center',
+  }
 });
 
 export default EventList;
