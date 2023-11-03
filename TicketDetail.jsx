@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
 import emailjs from 'emailjs-com';
 
-  const timeformat = "EEEE, LLLL dd · HH:mm"
+const timeformat = "EEEE, LLLL dd · HH:mm"
 
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
@@ -85,24 +86,39 @@ export function TicketDetailPage() {
     });
   };
 
-  // const sendConfirmationEmail = () => {
-  //   const serviceID = 'service_fqjmp5m'; // Replace with your EmailJS service ID
-  //   const templateID = 'template_m55nx7c'; // Replace with your EmailJS template ID
-  //   const userID = 'VHbPq5m4DOMVZjOrb'; // Replace with your EmailJS user ID
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  //   emailjs.init(userID);
+  const sendConfirmationEmail = () => {
+    const serviceID = 'service_fqjmp5m';
+    const templateID = 'template_m55nx7c';
+    const templateOrgId = 'template_nfq52cf';
+    const userID = 'VHbPq5m4DOMVZjOrb';
+    const templateParams = {
+      to_email: email,
+    };
+    const templateParamsOrg = {
+      from_name: email,
+    };
 
-  //   emailjs.send(serviceID, templateID, {
-  //     to_email: 'siyuwan15@gmail.com', // Replace with the recipient's email address
-  //     message: 'Thank you for registering for the event!', // Your email message
-  //   })
-  //     .then((response) => {
-  //       console.log('Email sent successfully:', response);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error sending email:', error);
-  //     });
-  // };
+    emailjs.init(userID);
+
+    emailjs.send(serviceID, templateID, templateParams)
+      .then((response) => {
+        console.log('Email sent successfully:', response);
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+      });
+
+    emailjs.send(serviceID, templateOrgId, templateParamsOrg)
+    .then((response) => {
+      console.log('Email sent successfully:', response);
+    })
+    .catch((error) => {
+      console.error('Error sending email:', error);
+    });
+  };
 
   {/* Create Ticket List */}
   ticketList = [
@@ -127,7 +143,7 @@ export function TicketDetailPage() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.containerPayment}>
       {/* Event detail */}
       <View style={styles.eventDetails}>
         <Text style={styles.eventTextDetailsTitle}>{event.acf.name}</Text>
@@ -140,6 +156,24 @@ export function TicketDetailPage() {
         <Text style={styles.eventTextDetails}>{event.acf.location}</Text>
       </View>
 
+      <Text style={styles.label}>Email:</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+        placeholder="Enter your email"
+        keyboardType="email-address"
+      />
+
+      <Text style={styles.label}>Phone Number:</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setPhoneNumber(text)}
+        value={phoneNumber}
+        placeholder="Enter your phone number"
+        keyboardType="phone-pad"
+      />
+
       {ticketList.map((ticket, index) => (
         <TicketSection
           key={ticket.name}
@@ -148,29 +182,29 @@ export function TicketDetailPage() {
           setTotalPrice={setTotalPrice}
         />
       ))}
-
-      <Text>
-        Total Amount: {totalPrice} {ticketList[0].currency}
+  
+      <Text style={styles.totalPrice}>
+        Total Price: {totalPrice} {ticketList[0].currency}
       </Text>
       <FloatingButton
-        text='Pay with PayPal'
-        handleClick={handlePayWithPayPal}
-        disabled={totalPrice === 0}
-      />
-      {/* <FloatingButton
-        text="Send Confirmation Email"
-        handleClick={sendConfirmationEmail}
-      /> */}
+          text='Pay with PayPal'
+          handleClick={() => {
+            handlePayWithPayPal();
+            sendConfirmationEmail();
+          }}
+          disabled={totalPrice === 0}
+    />
+
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
+  containerPayment: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-start',
     backgroundColor: 'white',
   },
   quantityContainer: {
@@ -231,6 +265,15 @@ const styles = StyleSheet.create({
     width: '45%',
     marginLeft: '55%',
   },
+  payment: {
+    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  totalPrice: {
+    fontSize: 20,
+    fontWeight:"bold"
+  },
   button: {
     backgroundColor: '#6DB665',
     color: 'white',
@@ -251,4 +294,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
   },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    padding: 8,
+  },
+  label: {
+    width: 150,
+  }
 });
