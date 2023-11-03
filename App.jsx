@@ -17,10 +17,10 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
           <StatusBar style="auto" />
         </SafeAreaView>
-        <Stack.Navigator initialRouteName='Event List' >
+        <Stack.Navigator initialRouteName='Event List'>
           <Stack.Screen name='Event List' component={EventList}/>
           <Stack.Screen name='Event Detail' component={EventDetail} />
           <Stack.Screen name='Ticket Detail' component={TicketDetailPage} />
@@ -33,10 +33,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  statusBar: {
-    backgroundColor: "blue",
-    barStyle: "light-content",
-  },
   eventItem: {
     flexDirection: 'row',
     padding: 16,

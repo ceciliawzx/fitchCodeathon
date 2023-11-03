@@ -14,20 +14,13 @@ import { FloatingButton } from './util';
 
 
 export const EventDetail = () => {
-  const timeformat = "dd-MM-yyyy    HH:mma"
+  const timeformat = "EEEE, LLLL dd, yyyy    HH:mm"
   const route = useRoute();
   const { event } = route.params;
 
   const dateImg = require('./assets/date-icon.jpg');
   const locImg = require('./assets/loc-icon.jpg');
   const descripImg = require('./assets/description.png');
-
-  // TODO: parse the date and time string from json data
-  const dateStr = 'December 5, 2023';
-  const timeStr = '19:00 ~ 21:00';
-
-  const location = 'London';
-  const detailLoc = 'Imperial College London';
 
   const navigation = useNavigation();
 

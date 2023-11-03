@@ -12,7 +12,7 @@ import { FloatingButton } from './util';
 // import { ScrollView } from '@react-native-gesture-handler';
 // import { ScrollView } from 'react-native';
 
-const timeformat = 'dd-MM-yyyy    HH:mma';
+  const timeformat = "EEEE, LLLL dd · HH:mm"
 
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+    backgroundColor: 'white',
   },
   quantityContainer: {
     // alignItems: 'center',
@@ -209,11 +210,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // alignSelf: 'right',
     justifyContent: 'space-between',
-    width: '50%',
-    marginLeft: '50%',
+    width: '45%',
+    marginLeft: '55%',
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#6DB665',
     color: 'white',
     width: 40,
     height: 40,
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   biOpButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#6DB665',
   },
   disabledMinusButton: {
     backgroundColor: 'grey',
