@@ -1,11 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
-<<<<<<< HEAD
 // import { NavigationContainer } from '@react-navigation/native';
-=======
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
->>>>>>> b7309feea7cf1ea0989b06221d1389c332a9651e
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventList from './EventList';
 import { EventDetail } from './EventDetail';
