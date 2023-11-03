@@ -1,22 +1,16 @@
 import React from 'react';
-import { format } from "date-fns";
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
-  Image,
-  ScrollView,
   TouchableOpacity,
   SafeAreaView,
   ImageBackground,
-  Button,
-  Linking
+  Linking,
+  ScrollView
 } from 'react-native';
 import backgroundImage from './assets/pic.jpg';
-import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
-
 
 export const About = () => {
 
@@ -39,9 +33,8 @@ export const About = () => {
       </Text>
       <TouchableOpacity style={styles.customButton} onPress={() => Linking.openURL('https://friendsofbulgaria.org.uk/')}>
         <Text style={styles.buttonText}>Visit Website</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
-    
+      </TouchableOpacity>    
+      </SafeAreaView>
   );
 
 
@@ -53,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f9fa',
   },
   headerImage: {
-    flex: 0.9, // Takes 50% of the page height
+    flex: 0.8, // Takes 50% of the page height
     justifyContent: 'center', // Centers the title vertically
   },
   headerOverlay: {
@@ -66,6 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'Cochin',
     paddingHorizontal: 10, 
   },
   charityDescription: {
@@ -83,18 +77,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Cochin'
   },
   customButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 300,
+    position: 'absolute',
+    bottom: 20, // Distance from the bottom
+    left: '50%', // Set to 50% of the container width
+    transform: [{ translateX: -150 }], // Translate back by half the width of the button
+    height: 50,
+    borderRadius: 35, 
     alignSelf:'center',
     width: 300,
     backgroundColor: '#00ab41', // Desired background color
     padding: 10,
-    borderRadius: 20, // This gives the rounded corners
     alignItems: 'center',
-    
-},
-buttonText: {
-    color: 'white', 
-    fontSize: 18,
-    fontWeight: 'bold',
-},
-  //... other styles (updateItem, updateImage, updateContent, etc.)
+  },
+  buttonText: {
+      color: 'white', 
+      fontSize: 18,
+      fontWeight: 'bold',
+  },
 });

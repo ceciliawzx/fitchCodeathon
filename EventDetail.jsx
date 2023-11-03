@@ -3,11 +3,9 @@ import { format } from "date-fns";
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
   Image,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
@@ -57,11 +55,9 @@ export const EventDetail = () => {
               }}
             >
               <Image source={dateImg} style={stylesDetails.icon} />
-              {/* <View style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}> */}
               <View
                 style={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}
               >
-                {/* TODO: parse date and time */}
                 <Text style={stylesDetails.eventTime}>{format (new Date(event.acf.starttime), timeformat)}</Text>
                 <Text style={stylesDetails.eventTimeSmall}>{"to"}</Text>
                 <Text style={stylesDetails.eventTime}>{format (new Date(event.acf.endtime), timeformat)}</Text>
@@ -117,9 +113,6 @@ export const EventDetail = () => {
   );
 };
 
-const Ticket = (ticket) => {
-  return <></>;
-};
 
 const stylesDetails = StyleSheet.create({
   containerEvent: {
@@ -135,6 +128,8 @@ const stylesDetails = StyleSheet.create({
   bigEventName: {
     fontSize: 35,
     marginBottom: 15,
+    fontFamily: 'Cochin',
+    fontWeight: 'bold',
   },
   eventTime: {
     fontSize: 15,
@@ -142,12 +137,9 @@ const stylesDetails = StyleSheet.create({
   eventTimeSmall: {
     fontSize: 13,
     textAlign: 'left',
-    color: '#888',
+    color: '#888'
   },
   eventImage: {
-    // width: '90%',
-    // height: 200,
-    // borderRadius: 20,
     width: '100%',
     height: 300,
     marginBottom: 20,

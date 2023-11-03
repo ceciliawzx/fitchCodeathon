@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventList from './EventList';
@@ -8,17 +7,9 @@ import { EventDetail } from './EventDetail';
 import { TicketDetailPage } from './TicketDetail';
 import { About } from './About';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { PayPal } from './Paypal';
-import React, { useEffect } from 'react';
-import * as Linking from 'expo-linking';
-import {
-  NavigationContainer,
-  useNavigation,
-  handleDeepLink,
-} from '@react-navigation/native';
-import { View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
@@ -71,48 +62,12 @@ function StackNavigator() {
 }
 
 export default function App() {
-  const navigationRef = React.useRef(null);
-
-  const prefix = Linking.createURL('fitchcode://');
-
-  const linking = {
-    prefixes: [prefix],
-    config: {
-      screens: {
-        EventDetail: 'paypal/return',
-        // ... any other route mappings
-      },
-    },
-  };
-
-  useEffect(() => {
-    const handleDeepLink = (event) => {
-      console.log('inside handle deep link, event ', event);
-      let data = Linking.parse(event.url);
-      if (data.path && navigationRef.current) {
-        // Use the ref to navigate to the correct screen
-        navigationRef.current.navigate('EventDetail', {
-          // paymentId: data.queryParams.paymentId,
-          // payerId: data.queryParams.PayerID,
-          event: data.queryParams.event,
-        });
-      }
-    };
-
-    Linking.addEventListener('url', handleDeepLink);
-
-    return () => {
-      Linking.removeEventListener('url', handleDeepLink);
-    };
-  }, []);
-
   return (
     <NavigationContainer>
       <SafeAreaView>
         <StatusBar style='auto' />
       </SafeAreaView>
       <TabNavigator></TabNavigator>
-      {/* <PayPalScriptProvider options={{ 'client-id': CLIENT_ID }} /> */}
     </NavigationContainer>
   );
 }

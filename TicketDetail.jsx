@@ -85,25 +85,6 @@ export function TicketDetailPage() {
     });
   };
 
-  // const sendConfirmationEmail = () => {
-  //   const serviceID = 'service_fqjmp5m'; // Replace with your EmailJS service ID
-  //   const templateID = 'template_m55nx7c'; // Replace with your EmailJS template ID
-  //   const userID = 'VHbPq5m4DOMVZjOrb'; // Replace with your EmailJS user ID
-
-  //   emailjs.init(userID);
-
-  //   emailjs.send(serviceID, templateID, {
-  //     to_email: 'siyuwan15@gmail.com', // Replace with the recipient's email address
-  //     message: 'Thank you for registering for the event!', // Your email message
-  //   })
-  //     .then((response) => {
-  //       console.log('Email sent successfully:', response);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error sending email:', error);
-  //     });
-  // };
-
   {/* Create Ticket List */}
   ticketList = [
     {
@@ -157,10 +138,6 @@ export function TicketDetailPage() {
         handleClick={handlePayWithPayPal}
         disabled={totalPrice === 0}
       />
-      {/* <FloatingButton
-        text="Send Confirmation Email"
-        handleClick={sendConfirmationEmail}
-      /> */}
     </ScrollView>
   );
 }
@@ -171,10 +148,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: 'white',
   },
   quantityContainer: {
-    // alignItems: 'center',
+
   },
   eventDetails: {
     width: '100%',
@@ -226,7 +202,6 @@ const styles = StyleSheet.create({
   quantityInput: {
     flexDirection: 'row',
     alignItems: 'center',
-    // alignSelf: 'right',
     justifyContent: 'space-between',
     width: '45%',
     marginLeft: '55%',

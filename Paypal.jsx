@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -11,15 +11,12 @@ export class PayPal extends Component {
     this.totalPrice = props.route.params.totalPrice;
     this.event = props.route.params.event;
     this.navigation = props.route.params.navigation;
-    // this.navigation = useNavigation();
-    // const navigation = useNavigation();
   }
 
   handlePaymentCompletion = () => {
     this.navigation.navigate('EventDetail', {
       event: this.event,
     });
-    // this.navigation.navigate('EventDetail', { event: route.params.event });
   };
 
   state = {
@@ -105,30 +102,11 @@ export class PayPal extends Component {
       .catch((err) => {
         console.log({ ...err });
       });
-    //   this.navigation.navigate('EventDetail', {
-    //     event: this.event,
-    //   });
   }
 
   _onNavigationStateChange = (webViewState) => {
     console.log('webViewState===', webViewState);
     const { url } = webViewState;
-    // const queryString = url.split('?')[1];
-
-    // if (queryString) {
-    //   const params = queryString.split('&').reduce((accumulator, current) => {
-    //     const [key, value] = current.split('=');
-    //     accumulator[key] = decodeURIComponent(value);
-    //     return accumulator;
-    //   }, {});
-
-    //   const payerId = params['PayerID'];
-    //   const token = params['token'];
-
-    //   if (payerId && token) {
-    //     this.executePayment(token, payerId);
-    //   }
-    // }
 
     extractParams = (url) => {
       const queryString = url.split('?')[1];
