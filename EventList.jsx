@@ -250,7 +250,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#212529',
     textAlign: 'center', 
-    fontFamily: 'Cochin'
   },
 });
 
