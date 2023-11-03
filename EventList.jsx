@@ -150,9 +150,6 @@ const EventList = () => {
   return (
     <>
     <ScrollView backgroundColor='white'>
-    <Text style={styles.Slogan}>
-      We are Friends of Bulgaria !
-    </Text>
     <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false}
