@@ -9,6 +9,8 @@ import { TicketDetailPage } from './TicketDetail';
 import { About } from './About';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { PayPal } from './Paypal';
+
 
 const CLIENT_ID =
   'Afl6QPkcTJaNm_WXsDvRvaPGVmajl0sKeWf47NNSR0bJUx49nMoHnsyZ81_0ccpGheEm_ah9en66575M';
@@ -52,6 +54,7 @@ function StackNavigator() {
   <Stack.Screen name='Home' component={EventList} />
   <Stack.Screen name='EventDetail' component={EventDetail} />
   <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
+  <Stack.Screen name="PayPal" component={PayPal} />
 </Stack.Navigator>
 )
 }
@@ -63,7 +66,7 @@ export default function App() {
     <>
       <NavigationContainer>
         <SafeAreaView style={styles.container}>
-          <StatusBar style='auto' />
+          <StatusBar style="auto" />
         </SafeAreaView>
         <TabNavigator></TabNavigator>
         {/* <PayPalScriptProvider options={{ 'client-id': CLIENT_ID }} /> */}
@@ -73,6 +76,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  statusBar: {
+    backgroundColor: "blue",
+    barStyle: "light-content",
+  },
   eventItem: {
     flexDirection: 'row',
     padding: 16,

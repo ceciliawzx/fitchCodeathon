@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { format } from "date-fns";
+import { format } from 'date-fns';
 import {
   View,
   Text,
@@ -7,11 +7,11 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
 import emailjs from 'emailjs-com';
 
-const timeformat = "dd-MM-yyyy    HH:mma"
+const timeformat = 'dd-MM-yyyy    HH:mma';
 
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
@@ -21,7 +21,9 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
       {/* TicketName and Price Display */}
       <View style={styles.ticketNamePrice}>
         <Text style={styles.ticketListText}>{ticket.name}</Text>
-        <Text style={styles.ticketListText}>Price: {price} {ticketList[0].currency}</Text>
+        <Text style={styles.ticketListText}>
+          Price: {price} {ticketList[0].currency}
+        </Text>
       </View>
 
       {/* Quantity Display */}
@@ -72,10 +74,19 @@ export function TicketDetailPage() {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const navigation = useNavigation();
+
   const handlePayWithPayPal = () => {
     // Implement PayPal integration here
     // This function will be called when the "Pay with PayPal" button is pressed
     // You can use PayPal SDK or a web view for the payment process
+    // Here you should pass all the necessary details to the PayPal component
+    // This could include the total amount, currency, and any other data required for the payment
+    navigation.navigate('PayPal', {
+      totalPrice: totalPrice,
+      currency: ticketList[0].currency,
+      // Add any other props you need to pass
+    });
   };
 
   // const sendConfirmationEmail = () => {
@@ -103,16 +114,20 @@ export function TicketDetailPage() {
       name: event.acf.ticket.ticket_name,
       price: event.acf.ticket.price,
       currency: event.acf.ticket.currency,
-    }
+    },
   ];
 
   // if have another ticket, add it
-  if (event.acf.ticket_2.ticket_name_2 != "" && event.acf.ticket_2.price_2 != "" && event.acf.ticket_2.currency_2 != "") {
+  if (
+    event.acf.ticket_2.ticket_name_2 != '' &&
+    event.acf.ticket_2.price_2 != '' &&
+    event.acf.ticket_2.currency_2 != ''
+  ) {
     ticketList.push({
       name: event.acf.ticket_2.ticket_name_2,
       price: event.acf.ticket_2.price_2,
       currency: event.acf.ticket_2.currency_2,
-    })
+    });
   }
 
   return (
@@ -120,8 +135,12 @@ export function TicketDetailPage() {
       {/* Event detail */}
       <View style={styles.eventDetails}>
         <Text style={styles.eventTextDetailsTitle}>{event.acf.name}</Text>
-        <Text style={styles.eventTextDetails}>{format (new Date(event.acf.starttime), timeformat)}</Text>
-        <Text style={styles.eventTextDetails}>{format (new Date(event.acf.endtime), timeformat)}</Text>
+        <Text style={styles.eventTextDetails}>
+          {format(new Date(event.acf.starttime), timeformat)}
+        </Text>
+        <Text style={styles.eventTextDetails}>
+          {format(new Date(event.acf.endtime), timeformat)}
+        </Text>
         <Text style={styles.eventTextDetails}>{event.acf.location}</Text>
       </View>
 
@@ -133,7 +152,9 @@ export function TicketDetailPage() {
         />
       ))}
 
-      <Text>Total Amount: {totalPrice} {ticketList[0].currency}</Text>
+      <Text>
+        Total Amount: {totalPrice} {ticketList[0].currency}
+      </Text>
       <FloatingButton
         text='Pay with PayPal'
         handleClick={handlePayWithPayPal}

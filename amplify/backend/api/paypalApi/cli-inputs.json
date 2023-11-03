@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/connectPaypal": {
+      "name": "/connectPaypal",
+      "lambdaFunction": "connectPayPal",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
