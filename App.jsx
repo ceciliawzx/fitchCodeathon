@@ -18,12 +18,12 @@ export default function App() {
     <>
       <NavigationContainer>
         <SafeAreaView style={styles.container}>
-          <StatusBar style='auto' />
+          <StatusBar style="auto" />
         </SafeAreaView>
-        <Stack.Navigator initialRouteName='EventList' >
-          <Stack.Screen name='EventList' component={EventList} />
-          <Stack.Screen name='EventDetail' component={EventDetail} />
-          <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
+        <Stack.Navigator initialRouteName='Event List' >
+          <Stack.Screen name='Event List' component={EventList}/>
+          <Stack.Screen name='Event Detail' component={EventDetail} />
+          <Stack.Screen name='Ticket Detail' component={TicketDetailPage} />
           <Stack.Screen name="PayPal" component={PayPal} />
         </Stack.Navigator>
         {/* <PayPalScriptProvider options={{ 'client-id': CLIENT_ID }} /> */}
@@ -33,6 +33,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  statusBar: {
+    backgroundColor: "blue",
+    barStyle: "light-content",
+  },
   eventItem: {
     flexDirection: 'row',
     padding: 16,

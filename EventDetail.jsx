@@ -33,7 +33,7 @@ export const EventDetail = () => {
 
   const handleRegisterClicked = () => {
     // Navigate to the EventDetail screen with the selectedEvent
-    navigation.navigate('TicketDetail', { event: event });
+    navigation.navigate('Ticket Detail', { event: event });
   };
 
   // if no image uploaded, use default image
