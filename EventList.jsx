@@ -13,6 +13,14 @@ import {
   RefreshControl,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import topImge from './assets/pic.jpg';
+
+const topImages = [
+  require('./assets/pic3.jpg'),
+  require('./assets/pic2.jpg'),
+  require('./assets/pic.jpg'),
+  // Add more images as needed
+];
 
 const eventsData = [
   {
@@ -68,7 +76,16 @@ const eventsData = [
   // Add more events as needed
 ];
 
+const renderTopImage = (image) => (
+  <Image 
+    key={image} // Assign a unique key for each image
+    source={image} 
+    style={styles.topImage}
+  />
+);
+
 const EventList = () => {
+  
   // fetch data when refreshing
   const [refreshing, setRefreshing] = useState(false);
   const [response, setResponse] = useState(null);
@@ -132,7 +149,19 @@ const EventList = () => {
 
   return (
     <>
-
+    <ScrollView>
+    <Text style={styles.Slogan}>
+      We are Friends of Bulgaria !
+    </Text>
+    <ScrollView 
+        horizontal 
+        showsHorizontalScrollIndicator={false}
+        style={styles.imageScrollView}
+        contentContainerStyle={styles.imageScrollContainer}
+        snapToInterval={395}
+      >
+        {topImages.map(renderTopImage)}
+      </ScrollView>
     <FlatList
       data={response}
       refreshControl={
@@ -142,6 +171,7 @@ const EventList = () => {
       keyExtractor={(item) => item.id
       }
     />
+    </ScrollView>
     </>
   );
 };
@@ -200,7 +230,27 @@ const styles = StyleSheet.create({
     marginLeft: 10, // Optional: if you want some space from the left edge of the screen
     marginRight: 10, // Optional: if you want some space from the right edge of the screen
     alignItems: 'center',
-  }
+  },
+  imageScrollView: {
+    height: 200, // Adjust the height as needed
+    marginBottom: 10,
+  },
+  imageScrollContainer: {
+    alignItems: 'center',
+  },
+  topImage: {
+    width: 370, // Adjust the width as needed
+    height: 200,
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  Slogan: {
+    padding: 15,
+    fontSize: 18,
+    color: '#212529',
+    textAlign: 'center', 
+    fontFamily: 'Cochin'
+  },
 });
 
 export default EventList;
