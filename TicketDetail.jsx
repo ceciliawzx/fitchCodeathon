@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   eventTextDetails: {
     fontWeight: 'bold',
     textAlign: 'right',
-    marginRight: 20,
+    marginRight: 50,
   },
   ticketList: {
     marginBottom: 20,

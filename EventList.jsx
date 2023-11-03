@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import { format } from "date-fns";
 import {
   View,
@@ -8,9 +8,11 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 
 const eventsData = [
   {
@@ -67,24 +69,31 @@ const eventsData = [
 ];
 
 const EventList = () => {
-  let [error, setError] = useState()
-  let [response, setResponse] = useState()
+  // fetch data when refreshing
+  const [refreshing, setRefreshing] = useState(false);
+  const [response, setResponse] = useState(null);
 
-  useEffect(() => {
-    fetch("http://34.201.135.72/?rest_route=/wp/v2/normalevent")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setResponse(result)
-        },
-        (error) => {
-          setError(error)
-        }
-      )
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://34.201.135.72/?rest_route=/wp/v2/normalevent");
+      const result = await response.json();
+      setResponse(result);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchData();
   }, []);
 
-  // console.log(response);
-  // console.log(response["acf"]);
+  // handle data fetching when launch
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const navigation = useNavigation();
 
@@ -104,7 +113,8 @@ const EventList = () => {
     const imagePath = match ? match[1] : default_image;
 
     return (
-    <TouchableOpacity onPress={() => handleEventPress(item)}>
+
+    <TouchableWithoutFeedback onPress={() => handleEventPress(item)}>
       <SafeAreaView style={styles.eventItem}>
         <Image style={styles.eventImage} source={{ uri: imagePath }} />
         <View>
@@ -113,7 +123,7 @@ const EventList = () => {
           <Text style={styles.eventDate}>{item.acf.location}</Text>
         </View>
       </SafeAreaView>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback >
     )
 
   };
@@ -121,6 +131,9 @@ const EventList = () => {
   return (
     <FlatList
       data={response}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }
       renderItem={renderItem}
       keyExtractor={(item) => item.id
       }

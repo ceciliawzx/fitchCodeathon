@@ -18,7 +18,7 @@ export default function App() {
         <SafeAreaView style={styles.container}>
           <StatusBar style='auto' />
         </SafeAreaView>
-        <Stack.Navigator initialRouteName='EventList'>
+        <Stack.Navigator initialRouteName='EventList' >
           <Stack.Screen name='EventList' component={EventList} />
           <Stack.Screen name='EventDetail' component={EventDetail} />
           <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
