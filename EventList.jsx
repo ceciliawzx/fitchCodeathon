@@ -102,7 +102,7 @@ const EventList = () => {
   
   const handleEventPress = (eventItem) => {
     // Navigate to the EventDetail screen with the selectedEvent
-    navigation.navigate('Event Detail', { event: eventItem });
+    navigation.navigate('EventDetail', { event: eventItem });
   };
 
   const renderItem = ({ item }) => {

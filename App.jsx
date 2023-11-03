@@ -50,7 +50,7 @@ function TabNavigator() {
 
 function StackNavigator() {
   return(
-<Stack.Navigator initialRouteName='EventList' >
+<Stack.Navigator>
   <Stack.Screen name='Home' component={EventList} />
   <Stack.Screen name='EventDetail' component={EventDetail} />
   <Stack.Screen name='TicketDetail' component={TicketDetailPage} />
