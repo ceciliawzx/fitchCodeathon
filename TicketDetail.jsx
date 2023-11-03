@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   quantityContainer: {
-    // alignItems: 'center',
+
   },
   eventDetails: {
     width: '100%',
@@ -260,7 +260,6 @@ const styles = StyleSheet.create({
   quantityInput: {
     flexDirection: 'row',
     alignItems: 'center',
-    // alignSelf: 'right',
     justifyContent: 'space-between',
     width: '45%',
     marginLeft: '55%',
