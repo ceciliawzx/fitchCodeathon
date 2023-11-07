@@ -177,65 +177,71 @@ export function TicketDetailPage() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.containerPayment}>
-      <Modal
-        visible={state.showModal}
-        onRequestClose={() => setState({ ...state, showModal: false })}
-      >
-        <WebView
-          source={{ uri: 'http://localhost:3000' }}
-          onNavigationStateChange={(data) => handleResponse(data)}
-        />
-      </Modal>
-      {/* Event detail */}
-      <View style={styles.eventDetails}>
-        <Text style={styles.eventTextDetailsTitle}>{event.acf.name}</Text>
-        <Text style={styles.eventTextDetails}>
-          {format(new Date(event.acf.starttime), timeformat)}
+    <View style={{ flex: 1 }}>
+      {/* This view is the container for the whole screen */}
+      <ScrollView contentContainerStyle={styles.containerPayment}>
+        <Modal
+          visible={state.showModal}
+          onRequestClose={() => setState({ ...state, showModal: false })}
+        >
+          <WebView
+            source={{ uri: 'http://localhost:3000' }}
+            onNavigationStateChange={(data) => handleResponse(data)}
+          />
+        </Modal>
+        {/* Event detail */}
+        <View style={styles.eventDetails}>
+          <Text style={styles.eventTextDetailsTitle}>{event.acf.name}</Text>
+          <Text style={styles.eventTextDetails}>
+            {format(new Date(event.acf.starttime), timeformat)}
+          </Text>
+          <Text style={styles.eventTextDetails}>
+            {format(new Date(event.acf.endtime), timeformat)}
+          </Text>
+          <Text style={styles.eventTextDetails}>{event.acf.location}</Text>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Email:</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            placeholder='Enter your email'
+            keyboardType='email-address'
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Phone Number:</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setPhoneNumber(text)}
+            value={phoneNumber}
+            placeholder='Enter your phone number'
+            keyboardType='phone-pad'
+          />
+        </View>
+
+        {ticketList.map((ticket, index) => (
+          <TicketSection
+            key={ticket.name}
+            ticket={ticket}
+            totalPrice={totalPrice}
+            setTotalPrice={setTotalPrice}
+          />
+        ))}
+
+        <Text style={styles.totalPrice}>
+          Total Price: {totalPrice} {ticketList[0].currency}
         </Text>
-        <Text style={styles.eventTextDetails}>
-          {format(new Date(event.acf.endtime), timeformat)}
-        </Text>
-        <Text style={styles.eventTextDetails}>{event.acf.location}</Text>
-      </View>
-
-      <Text style={styles.label}>Email:</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-        placeholder='Enter your email'
-        keyboardType='email-address'
-      />
-
-      <Text style={styles.label}>Phone Number:</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(text) => setPhoneNumber(text)}
-        value={phoneNumber}
-        placeholder='Enter your phone number'
-        keyboardType='phone-pad'
-      />
-
-      {ticketList.map((ticket, index) => (
-        <TicketSection
-          key={ticket.name}
-          ticket={ticket}
-          totalPrice={totalPrice}
-          setTotalPrice={setTotalPrice}
-        />
-      ))}
-
-      <Text style={styles.totalPrice}>
-        Total Price: {totalPrice} {ticketList[0].currency}
-      </Text>
-
+      </ScrollView>
       <FloatingButton
         text='Pay with PayPal'
         handleClick={handlePayWithPayPal}
         disabled={totalPrice === 0}
       />
-    </ScrollView>
+    </View>
   );
 }
 
@@ -331,14 +337,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
   },
+  inputContainer: {
+    alignSelf: 'center', // Align the container to the center
+    width: '75%', // The container takes the full width of its parent
+    alignItems: 'center', // Align children (label and input) in the center
+    justifyContent: 'center', // Center children along the cross axis
+    marginBottom: 20, // Space between input containers
+  },
+  label: {
+    fontSize: 16,
+    color: '#000',
+    alignSelf: 'flex-start', // Align the label to the start within the container
+    textAlign: 'left',
+    width: '100%', // Label takes up 80% width to align with the input below
+    marginBottom: 5,
+  },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 16,
     padding: 8,
-  },
-  label: {
-    width: 150,
+    width: '100%', // Input takes up 80% width of its parent container
+    // Add additional styling for the input if needed
   },
 });

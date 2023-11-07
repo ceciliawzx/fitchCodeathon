@@ -92,30 +92,31 @@ const EventList = () => {
     );
   };
 
-  return (
+  const renderHeader = () => (
     <>
       <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-        }
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.imageScrollView}
+        contentContainerStyle={styles.imageScrollContainer}
+        snapToInterval={395}
       >
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.imageScrollView}
-          contentContainerStyle={styles.imageScrollContainer}
-          snapToInterval={395}
-        >
-          {topImages.map(renderTopImage)}
-        </ScrollView>
-        <Text style={styles.Slogan}>Upcoming Events</Text>
-        <FlatList
-          data={response}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        {topImages.map(renderTopImage)}
       </ScrollView>
+      <Text style={styles.Slogan}>Upcoming Events</Text>
     </>
+  );
+
+  return (
+    <FlatList
+      data={response}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id.toString()}
+      ListHeaderComponent={renderHeader}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }
+    />
   );
 };
 

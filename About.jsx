@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   SafeAreaView,
   ImageBackground,
   Linking,
@@ -12,32 +11,35 @@ import {
 import backgroundImage from './assets/pic.jpg';
 import { FloatingButton } from './util';
 
-export const About = () => {
-
+export function About() {
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground 
-        source={backgroundImage}
-        style={styles.headerImage}
-      >
-        <View style={styles.headerOverlay}>
-          <Text style={styles.headerTitle}>Friends of Bulgaria</Text>
-        </View>
-      </ImageBackground>
-      <Text style={styles.charityDescription}>
-      Friends of Bulgaria focusses on the wellbeing of children growing up without parents or family in institutional care. Funds are allocated to NGO (non-governmental organisations) partners responding to local initiatives for improving the quality of life of children in care living isolated, routine-bound existences, often lacking in stability being housed in centres undergoing fundamental change in the process of de-institutionalisation.
-      </Text>
+      {/* Use ScrollView for the scrollable content */}
+      <ScrollView style={styles.scrollView}>
+        <ImageBackground 
+          source={backgroundImage}
+          style={styles.headerImage}
+        >
+          <View style={styles.headerOverlay}>
+            <Text style={styles.headerTitle}>Friends of Bulgaria</Text>
+          </View>
+        </ImageBackground>
+        <Text style={styles.charityDescription}>
+          Friends of Bulgaria focusses on the wellbeing of children growing up without parents or family in institutional care. Funds are allocated to NGO (non-governmental organisations) partners responding to local initiatives for improving the quality of life of children in care living isolated, routine-bound existences, often lacking in stability being housed in centres undergoing fundamental change in the process of de-institutionalisation.
+        </Text>
 
-      <Text style={styles.Slogan}>
-        Go to our Website to learn more about us and join our events today!
-      </Text>
-      <TouchableOpacity style={styles.customButton} onPress={() => Linking.openURL('https://friendsofbulgaria.org.uk/')}>
-        <Text style={styles.buttonText}>Visit Website</Text>
-      </TouchableOpacity>    
-      </SafeAreaView>
+        <Text style={styles.Slogan}>
+          Go to our Website to learn more about us and join our events today!
+        </Text>
+        {/* Additional content here */}
+      </ScrollView>
+      <FloatingButton 
+        text='Visit Website'
+        handleClick={() => Linking.openURL('https://friendsofbulgaria.org.uk/')}
+        disabled={false}
+      />  
+    </SafeAreaView>
   );
-
-
 }
 
 const styles = StyleSheet.create({

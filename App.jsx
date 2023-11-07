@@ -22,7 +22,7 @@ function TabNavigator() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          // Here's where you set your icon based on the route name and focused state
+          // icon and focused state
           if (route.name === 'Events') {
             iconName = focused
               ? 'ios-information-circle'
@@ -34,11 +34,9 @@ function TabNavigator() {
           // Return the icon component
           return <Icon name={iconName} size={size} color={color} />;
         },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray', 
       })}
-      tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      }}
     >
       <Tab.Screen
         name='Events'
