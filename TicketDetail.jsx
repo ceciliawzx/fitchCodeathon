@@ -8,6 +8,7 @@ import {
   ScrollView,
   TextInput,
   Modal,
+  Alert,
 } from 'react-native';
 import WebView from 'react-native-webview';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -19,6 +20,7 @@ const timeformat = 'EEEE, LLLL dd · HH:mm';
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
   const price = ticket.price;
   const [ticketQuantity, setTicketQuantity] = useState(0);
+
   return (
     <View style={styles.ticketBlock}>
       {/* TicketName and Price Display */}
@@ -74,28 +76,23 @@ const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
 export function TicketDetailPage() {
   const route = useRoute();
   const { event } = route.params;
-
-  const [totalPrice, setTotalPrice] = useState(0);
-
   const navigation = useNavigation();
 
-  // const handlePayWithPayPal = () => {
-  //   navigation.navigate('PayPal', {
-  //     totalPrice: totalPrice,
-  //     currency: ticketList[0].currency,
-  //     event: event,
-  //     navigation: navigation,
-  //   });
-  // };
-
+  const [totalPrice, setTotalPrice] = useState(0);
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [state, setState] = useState({ showModel: false, status: 'Pending' });
-  const [show, setShow] = useState(false);
+  const [state, setState] = useState({ showModal: false, status: 'Pending' });
 
   const handlePayWithPayPal = () => {
-    // setState({...state, showModel: true});
-    setShow(true);
+    if (email !== '' && phoneNumber !== '') {
+      setState({ ...state, showModal: true });
+    } else {
+      Alert.alert(
+        'Wrong input', // alert title
+        'Please input your email and phone number to continue.', // alert message
+        [{ text: 'OK' }]
+      );
+    }
   };
 
   const sendConfirmationEmail = () => {
@@ -155,11 +152,39 @@ export function TicketDetailPage() {
   //   });
   // }
 
+  const handleResponse = (data) => {
+    console.log('Navigation State Changed:', data);
+    if (data.url.includes('/success')) {
+      setTimeout(() => {
+        setState({ showModal: false, status: 'Complete' });
+      }, 3000);
+      Alert.alert(
+        'Registration Successful', // alert title
+        'You will soon receive a confirmation email from the organizer.', // alert message
+        [{ text: 'OK' }]
+      );
+      sendConfirmationEmail();
+      navigation.navigate('EventDetail', { event: event });
+    } else if (data.url.includes('/cancel')) {
+      setTimeout(() => {
+        setState({ showModal: false, status: 'Cancelled' });
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        return;
+      }, 3000);
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.containerPayment}>
-      <Modal visible={show} onRequestClose={() => setState(false)}>
+      <Modal
+        visible={state.showModal}
+        onRequestClose={() => setState({ ...state, showModal: false })}
+      >
         <WebView
           source={{ uri: 'http://localhost:3000' }}
+          onNavigationStateChange={(data) => handleResponse(data)}
         />
       </Modal>
       {/* Event detail */}
@@ -207,10 +232,7 @@ export function TicketDetailPage() {
 
       <FloatingButton
         text='Pay with PayPal'
-        handleClick={() => {
-          handlePayWithPayPal();
-          // sendConfirmationEmail();
-        }}
+        handleClick={handlePayWithPayPal}
         disabled={totalPrice === 0}
       />
     </ScrollView>

@@ -20,60 +20,6 @@ const topImages = [
   // Add more images as needed
 ];
 
-const eventsData = [
-  {
-    id: '1',
-    name: 'This is Event 1!!!',
-    date: 'October 10, 2023',
-    location: 'London',
-    description: 'this is an event',
-    tickets: [
-      {
-        type: 1,
-        price: 5.5,
-        currency: 'GBP',
-      },
-      {
-        type: 2,
-        price: 10,
-        currency: 'GBP',
-      },
-    ],
-    image: require('./assets/contact-bg.png'),
-  },
-  {
-    id: '2',
-    name: 'Event 2',
-    date: 'November 15, 2023',
-    location: 'London',
-    description: '',
-    tickets: [
-      {
-        type: 3,
-        price: 5,
-        currency: 'GBP',
-      },
-    ],
-    image: require('./assets/home-bg.png'),
-  },
-  {
-    id: '3',
-    name: 'Event 3',
-    date: 'December 5, 2023',
-    location: 'Cambridge',
-    description: '',
-    tickets: [
-      {
-        type: 1,
-        price: 8,
-        currency: 'GBP',
-      },
-    ],
-    image: require('./assets/project-bg.png'),
-  },
-  // Add more events as needed
-];
-
 const renderTopImage = (image) => (
   <Image
     key={image} // Assign a unique key for each image
