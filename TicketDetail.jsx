@@ -163,7 +163,7 @@ export function TicketDetailPage() {
         'You will soon receive a confirmation email from the organizer.', // alert message
         [{ text: 'OK' }]
       );
-      sendConfirmationEmail();
+      // sendConfirmationEmail();
       navigation.navigate('EventDetail', { event: event });
     } else if (data.url.includes('/cancel')) {
       setTimeout(() => {
@@ -187,6 +187,13 @@ export function TicketDetailPage() {
           <WebView
             source={{ uri: 'http://localhost:3000' }}
             onNavigationStateChange={(data) => handleResponse(data)}
+            javaScriptEnabled={true}
+            onMessage={(event) => {}}
+            injectedJavaScript={`
+            document.getElementById('price').value = '${totalPrice}';
+            document.getElementById('currency').value = '${ticketList[0].currency}';
+            document.forms['payment-form'].submit();
+          `}
           />
         </Modal>
         {/* Event detail */}
