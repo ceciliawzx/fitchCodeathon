@@ -90,7 +90,7 @@ const EventList = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        'http://34.201.135.72/?rest_route=/wp/v2/normalevent'
+        'http://18.130.11.128/?rest_route=/wp/v2/event'
       );
       const result = await response.json();
       setResponse(result);
@@ -123,7 +123,7 @@ const EventList = () => {
   const renderItem = ({ item }) => {
     // if no image uploaded, use default image
     const default_image =
-      'http://34.201.135.72/wp-content/uploads/2023/11/charity-team-building-e1651509883636.png';
+      'http://18.130.11.128/wp-content/uploads/2023/11/catImg1.jpg';
     const renderedContent = item.content.rendered;
     const match = renderedContent.match(/src="([^"]+)"/);
     const imagePath = match ? match[1] : default_image;
