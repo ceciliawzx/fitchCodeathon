@@ -163,7 +163,7 @@ export function TicketDetailPage() {
         'You will soon receive a confirmation email from the organizer.', // alert message
         [{ text: 'OK' }]
       );
-      // sendConfirmationEmail();
+      sendConfirmationEmail();
       navigation.navigate('EventDetail', { event: event });
     } else if (data.url.includes('/cancel')) {
       setTimeout(() => {
@@ -185,7 +185,7 @@ export function TicketDetailPage() {
           onRequestClose={() => setState({ ...state, showModal: false })}
         >
           <WebView
-            source={{ uri: 'http://localhost:3000' }}
+            source={{ uri: 'https://pbwix5epd8.execute-api.eu-west-2.amazonaws.com/dev/' }}
             onNavigationStateChange={(data) => handleResponse(data)}
             javaScriptEnabled={true}
             onMessage={(event) => {}}

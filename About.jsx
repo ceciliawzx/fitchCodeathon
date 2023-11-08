@@ -14,7 +14,6 @@ import { FloatingButton } from './util';
 export function About() {
   return (
     <SafeAreaView style={styles.container}>
-      {/* Use ScrollView for the scrollable content */}
       <ScrollView style={styles.scrollView}>
         <ImageBackground 
           source={backgroundImage}
@@ -42,19 +41,22 @@ export function About() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  scrollView: {
     flex: 1,
     backgroundColor: '#f8f9fa',
   },
   headerImage: {
-    flex: 0.8, // Takes 50% of the page height
-    justifyContent: 'center', // Centers the title vertically
+    justifyContent: 'center',
   },
   headerOverlay: {
-    backgroundColor: 'rgba(0,0,0,0.3)', // 30% opacity overlay
-    flex: 1, 
-    justifyContent: 'center', // Centers the title vertically
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    height: 300,
+    justifyContent: 'center',
   },
   headerTitle: {
     color: '#ffffff',
@@ -78,25 +80,9 @@ const styles = StyleSheet.create({
     textAlign: 'justify', 
     fontFamily: 'Cochin'
   },
-  customButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 300,
-    position: 'absolute',
-    bottom: 20, // Distance from the bottom
-    left: '50%', // Set to 50% of the container width
-    transform: [{ translateX: -150 }], // Translate back by half the width of the button
-    height: 50,
-    borderRadius: 35, 
-    alignSelf:'center',
-    width: 300,
-    backgroundColor: '#00ab41', // Desired background color
-    padding: 10,
-    alignItems: 'center',
-  },
   buttonText: {
-      color: 'white', 
-      fontSize: 18,
-      fontWeight: 'bold',
+    color: 'white', 
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
