@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#212529',
     textAlign: 'center',
-    fontFamily: 'Cochin',
     fontWeight: 'bold',
   },
 });

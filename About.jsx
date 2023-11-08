@@ -6,10 +6,11 @@ import {
   SafeAreaView,
   ImageBackground,
   Linking,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import backgroundImage from './assets/pic.jpg';
 import { FloatingButton } from './util';
+
 
 export function About() {
   return (
@@ -32,6 +33,7 @@ export function About() {
         </Text>
         {/* Additional content here */}
       </ScrollView>
+      <View style={{ height: 70, backgroundColor: 'transparent' }} />
       <FloatingButton 
         text='Visit Website'
         handleClick={() => Linking.openURL('https://friendsofbulgaria.org.uk/')}
@@ -48,7 +50,6 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
   },
   headerImage: {
     justifyContent: 'center',
@@ -61,24 +62,21 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: '#ffffff',
     fontSize: 48,
-    fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'Cochin',
     paddingHorizontal: 10, 
+    fontWeight: 'bold',
   },
   charityDescription: {
     padding: 15,
     fontSize: 18,
     color: '#212529',
     textAlign: 'justify', 
-    fontFamily: 'Cochin'
   },
   Slogan: {
     padding: 15,
     fontSize: 18,
     color: '#212529',
     textAlign: 'justify', 
-    fontFamily: 'Cochin'
   },
   buttonText: {
     color: 'white', 

@@ -128,8 +128,6 @@ const stylesDetails = StyleSheet.create({
   bigEventName: {
     fontSize: 35,
     marginBottom: 15,
-    fontFamily: 'Cochin',
-    fontWeight: 'bold',
   },
   eventTime: {
     fontSize: 15,
