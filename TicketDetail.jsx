@@ -15,6 +15,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { FloatingButton } from './util';
 import emailjs from 'emailjs-com';
 
+// You may want to change time format
 const timeformat = 'EEEE, LLLL dd · HH:mm';
 
 const TicketSection = ({ ticket, totalPrice, setTotalPrice }) => {
@@ -96,6 +97,7 @@ export function TicketDetailPage() {
   };
 
   const sendConfirmationEmail = () => {
+    // You will need to change all information here. These were used for our tests, and we will delete these information in several days. 
     const serviceID = 'service_fqjmp5m';
     const templateID = 'template_m55nx7c';
     const templateOrgId = 'template_nfq52cf';
@@ -176,6 +178,10 @@ export function TicketDetailPage() {
     }
   };
 
+  /** 
+   * TODO: IMPORTANT!!! You need to replace the uri for the WebView to the real backend server endpoint.
+   * This is related to paypal, very very very important! 
+  **/
   return (
     <View style={{ flex: 1 }}>
       {/* This view is the container for the whole screen */}

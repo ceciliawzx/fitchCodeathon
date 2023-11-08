@@ -35,6 +35,7 @@ const EventList = () => {
 
   const fetchData = async () => {
     try {
+      // fetch data from wordpress endpoint
       const response = await fetch(
         'http://18.130.11.128/?rest_route=/wp/v2/event'
       );
@@ -67,7 +68,7 @@ const EventList = () => {
   };
 
   const renderItem = ({ item }) => {
-    // if no image uploaded, use default image
+    // if no image uploaded, use default image. You will need to replace this endpoint
     const default_image =
       'http://18.130.11.128/wp-content/uploads/2023/11/catImg1.jpg';
     const renderedContent = item.content.rendered;
